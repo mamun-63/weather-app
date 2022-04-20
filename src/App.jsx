@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 
 const arr = [
   { date: '12-02-2002', tempInCel: 30  },
@@ -8,7 +7,7 @@ const arr = [
   { date: '12-02-2002', tempInCel: 31  }, 
 ]
 
-function App() {
+const App = () => {
   const [loading, setLoading] = useState(true)
   const [celsius, setCelsius] = useState(true)
 
@@ -38,14 +37,24 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h3>Weather Report</h3>
-      <div onChange={onChangeValue}>
-        <input type="radio" value="Celsius" name="temperature" defaultChecked /> Celsius
-        <input type="radio" value="Fahrenheit" name="temperature" /> Fahrenheit
+    <div className="grid flex-row justify-center p-2 mt-4">
+      <div className="text-2xl font-semibold text-indigo-700 mb-6">Weather Report</div>
+      <div onChange={onChangeValue} className="text-lg flex items-center gap-3 mb-3">
+        <label>
+          <input type="radio" value="Celsius" name="temperature" defaultChecked /> Celsius
+        </label>
+        <label>
+          <input type="radio" value="Fahrenheit" name="temperature" /> Fahrenheit
+        </label>
       </div>
 
-      { !loading && arr.map((item, index) => <div key={index}>
+      <div className="flex gap-8 mb-2 text-lg font-semibold">
+        <div>Date</div>
+        <div>Temperature</div>
+        <div>Type</div>
+      </div>
+
+      { !loading && arr.map((item, index) => <div key={index} className="flex gap-8 mb-2 border-b border-indigo-200">
         <div>{item.date}</div>
         { celsius ? <div>{item.tempInCel} °C</div> : <div>{item.tempInFrh} °F</div> }
         <div>{getWeatherType (item.tempInCel)}</div>
